@@ -1,1 +1,0 @@
--wto "f85d6f88558941edba3b181b4030fcb8" --incr --debug "typical" --relax --mt "2" -L "xil_defaultlib" -L "unisims_ver" -L "unimacro_ver" -L "secureip" --snapshot "MyAndGate_test_behav" "xil_defaultlib.MyAndGate_test" "xil_defaultlib.glbl" -log "elaborate.log" 

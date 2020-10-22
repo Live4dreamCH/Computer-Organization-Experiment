@@ -1,7 +1,0 @@
-Running: xsim.dir/My4AndGate_behav/xsimk.exe -simmode gui -wdb My4AndGate_behav.wdb -simrunnum 0 -socket 50371
-Design successfully loaded
-Design Loading Memory Usage: 5464 KB (Peak: 5464 KB)
-Design Loading CPU Usage: 31 ms
-Simulation completed
-Simulation Memory Usage: 6068 KB (Peak: 6068 KB)
-Simulation CPU Usage: 31 ms
