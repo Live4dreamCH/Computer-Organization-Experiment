@@ -1,0 +1,7 @@
+Running: xsim.dir/MyAndGate_test_behav/xsimk.exe -simmode gui -wdb MyAndGate_test_behav.wdb -simrunnum 0 -socket 59118
+Design successfully loaded
+Design Loading Memory Usage: 5944 KB (Peak: 5944 KB)
+Design Loading CPU Usage: 15 ms
+Simulation completed
+Simulation Memory Usage: 6564 KB (Peak: 6564 KB)
+Simulation CPU Usage: 15 ms
