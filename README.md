@@ -12,3 +12,7 @@ all rights reserved.
 ## author
 
 cs86, stu id=xxxxxxxx47
+
+## process
+
+10.22 exp1 与模块, 4输入与模块[path](./exp_1/exp_1.srcs/sources_1/new/), 分别测试[path](./exp_1/exp_1.srcs/sim_1/new/)
