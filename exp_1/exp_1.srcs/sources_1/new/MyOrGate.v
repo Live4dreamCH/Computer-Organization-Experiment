@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 2020/10/15 15:49:01
+// Create Date: 2020/10/23 21:10:43
 // Design Name: 
-// Module Name: MyAndGate_test
+// Module Name: MyOrGate
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,20 +20,16 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module MyAndGate_test(
-
+module MyOrGate(
+    i1,
+    i2,
+    o
     );
-    reg in1,in2;
-    wire out;
-    initial begin
-        in1=0;
-        in2=0;
-        #10;
-        in2=1;
-        #10;
-        in1=1;
-        #10;
-        in2=0;
-    end
-    MyAndGate a1(in1, in2, out);
+    input i1, i2;
+    output o;
+    wire ni1, ni2, temp;
+    MyNotGate n1(i1, ni1);
+    MyNotGate n2(i2, ni2);
+    MyAndGate a1(ni1, ni2, temp);
+    MyNotGate n3(temp, o);
 endmodule
