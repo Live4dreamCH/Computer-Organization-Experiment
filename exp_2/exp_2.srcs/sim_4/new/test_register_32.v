@@ -43,7 +43,7 @@ module test_register_32(
         #4
         data_bus_in = data_bus_in + 1;
         #1
-        // {en, clear, io} = {en, clear, io} - 1;
-        io = ~io;
+        {en, clear, io} = {en, clear, io} + 1;
+        // io = ~io;
     end
 endmodule

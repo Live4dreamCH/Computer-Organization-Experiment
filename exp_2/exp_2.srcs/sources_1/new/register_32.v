@@ -35,7 +35,7 @@ module register_32(
     input en, clear, io, clk;
     reg [31:0] inner_data;
 
-    assign data_bus = (io==0) ? inner_data : 32'bz;
+    assign data_bus = (io==0 && en==1) ? inner_data : 32'bz;
     always @(posedge clk) begin
         if (en) begin
             if (clear) begin
