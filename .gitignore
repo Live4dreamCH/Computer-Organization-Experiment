@@ -4,3 +4,7 @@
 *.ip_user_files/
 *.sim/
 *.xpr
+/others
+/riscv
+.gitignore
+/singleCPU
