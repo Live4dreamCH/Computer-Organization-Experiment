@@ -9,6 +9,7 @@
 `define R_addr_width 5
     //R-type中的func码宽度
 `define func_width 6
+`define alu_op_width 4
 
 //MIPS中的OP
 `define OP_Rtype 6'b000000
@@ -50,3 +51,16 @@
 
     //J-type
 `define op_j 5'd29
+
+//控制ALU的alu_op
+`define alu_l 4'd0
+`define alu_r 4'd1
+
+`define alu_add 4'd2
+`define alu_sub 4'd3
+
+`define alu_and 4'd4
+`define alu_or 4'd5
+`define alu_xor 4'd6
+
+`define alu_less 4'd7
