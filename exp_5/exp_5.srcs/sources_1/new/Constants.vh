@@ -2,8 +2,12 @@
 `define J_imme 26
 `define CPU_width 32
 `define I_imme 16
+    //CPU内操作码宽度
 `define op_width 5
+    //RF寄存器数量, 及地址宽度
+`define RF_num 32
 `define R_addr_width 5
+    //R-type中的func码宽度
 `define func_width 6
 
 //MIPS中的OP
