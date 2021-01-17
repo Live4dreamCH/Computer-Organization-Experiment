@@ -3,8 +3,12 @@
 
 //IR 指令寄存器
 //将MIPS指令中的op与func译码成内部op,提交给CU, 并提供数据给RF ALU等
-module IR(clk, en, we, instr, op, J, I, rs, rt, rd);
-    input clk, en, we;
+//instr 32位的指令,从MDR来
+//op 输出CPU片内操作码至CU, 5位
+//J, I, rs, rt, rd 立即数及寄存器地址, 供数据通路下游使用
+//is_rt 因为rt与rd都需要连至RF输入端, 所以需要选择一路信号通过. =1则选择rt
+module IR(clk, en, we, instr, op, J, I, rs, rt, rd, is_rt);
+    input clk, en, we, is_rt;
     input[`CPU_width-1 :0] instr;
 
     output[`op_width-1 :0] op;
@@ -24,8 +28,8 @@ module IR(clk, en, we, instr, op, J, I, rs, rt, rd);
     assign J = (we==0 && en==1) ? reg_J : `J_imme'bz;
     assign I = (we==0 && en==1) ? reg_I : `I_imme'bz;
     assign rs = (we==0 && en==1) ? reg_rs : `R_addr_width'bz;
-    assign rt = (we==0 && en==1) ? reg_rt : `R_addr_width'bz;
-    assign rd = (we==0 && en==1) ? reg_rd : `R_addr_width'bz;
+    assign rt = (we==0 && en==1 && is_rt==1) ? reg_rt : `R_addr_width'bz;
+    assign rd = (we==0 && en==1 && is_rt==0) ? reg_rd : `R_addr_width'bz;
 
     always @(posedge clk) begin
         if(en && we) begin
@@ -33,18 +37,33 @@ module IR(clk, en, we, instr, op, J, I, rs, rt, rd);
             case (instr[`CPU_width-1 : `J_imme])
                 `OP_Rtype: begin
                     case (instr[`func_width-1 : 0])
-                        `func_add: reg_op = 
-                        default: 
+                        `func_add: reg_op = `op_add;
+                        `func_sub: reg_op = `op_sub;
+                        `func_and: reg_op = `op_and;
+                        `func_or: reg_op = `op_or;
+                        `func_xor: reg_op = `op_xor;
+                        default: reg_op = `op_nop;
                     endcase
                 end
+                `OP_addi: reg_op = `op_addi;
+                `OP_andi: reg_op = `op_andi;
+                `OP_ori: reg_op = `op_ori;
+                `OP_lw: reg_op = `op_lw;
+                `OP_sw: reg_op = `op_sw;
+                `OP_beq: reg_op = `op_beq;
+                `OP_bne: reg_op = `op_bne;
+                `OP_j: reg_op = `op_bne;
+                default: reg_op = `op_j;
             endcase
 
             //数值备份转移
-            reg_J = reg_instr[`J_imme-1 :0];
-            reg_I = reg_instr[`I_imme-1 :0];
-            reg_rs = reg_instr[`J_imme-1 : `J_imme-5];
-            reg_rt = reg_instr[`J_imme-6 : `J_imme-10];
-            reg_rd = reg_instr[`J_imme-11 : `J_imme-15];
+            begin
+                reg_J <= reg_instr[`J_imme-1 :0];
+                reg_I <= reg_instr[`I_imme-1 :0];
+                reg_rs <= reg_instr[`J_imme-1 : `J_imme-5];
+                reg_rt <= reg_instr[`J_imme-6 : `J_imme-10];
+                reg_rd <= reg_instr[`J_imme-11 : `J_imme-15];
+            end
 
             //MAR->IR, 写入新指令
             reg_instr = instr;

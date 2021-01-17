@@ -27,8 +27,10 @@ module test_is_sign(
     reg[31:0] a=1, b=-1;
     reg clk=0;
     always fork
+        //是无符号数比较
         #1 result = a<b;
         #11 result = a>b;
+        //可行
         #3 forever begin 
             clk=~clk; 
             #5 ;
