@@ -24,6 +24,12 @@ module test_RF();
         #10
         we=0;
         #10
+        out1_addr=`R_addr_width'bz;
+        out2_addr=4;
+        #10
+        out1_addr=3;
+        out2_addr=`R_addr_width'bz;
+        #10
         $finish;
     end
 

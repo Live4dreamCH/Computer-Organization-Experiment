@@ -2,7 +2,7 @@
 //`include "Constants.vh"
 
 module test_IR();
-    reg clk=0, en=0, we=0, is_rt=1;
+    reg clk=0, en=0, we=0, is_rt=1, imme=1;
     reg[`CPU_width-1:0] instr=`CPU_width'bx;
 
     wire[`op_width-1 :0] op;
@@ -10,7 +10,7 @@ module test_IR();
     wire[`I_imme-1 :0] I;
     wire[`R_addr_width-1 :0] rs, rt, rd;
 
-    IR ir(clk, en, we, instr, op, J, I, rs, rt, rd, is_rt);
+    IR ir(clk, en, we, instr, op, J, I, rs, rt, rd, is_rt, imme);
 
     initial begin
         #3
@@ -58,6 +58,9 @@ module test_IR();
         #10
         is_rt = 0;
         #20
+
+        imme=0;
+        #40
         $finish;
     end
 

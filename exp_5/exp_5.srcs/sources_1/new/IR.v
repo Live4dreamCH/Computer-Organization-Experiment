@@ -7,8 +7,9 @@
 //op 输出CPU片内操作码至CU, 5位
 //J, I, rs, rt, rd 立即数及寄存器地址, 供数据通路下游使用
 //is_rt 因为rt与rd都需要连至RF输入端, 所以需要选择一路信号通过. =1则选择rt
-module IR(clk, en, we, instr, op, J, I, rs, rt, rd, is_rt);
-    input clk, en, we, is_rt;
+//imme 输出的J与I可能与RF的输出冲突, 故仅当imme=1时才输出J,I
+module IR(clk, en, we, instr, op, J, I, rs, rt, rd, is_rt, imme);
+    input clk, en, we, is_rt, imme;
     input[`CPU_width-1 :0] instr;
 
     output[`op_width-1 :0] op;
@@ -25,8 +26,8 @@ module IR(clk, en, we, instr, op, J, I, rs, rt, rd, is_rt);
 
     //输出
     assign op = (we==0 && en==1) ? reg_op : `op_width'bz;
-    assign J = (we==0 && en==1) ? reg_J : `J_imme'bz;
-    assign I = (we==0 && en==1) ? reg_I : `I_imme'bz;
+    assign J = (we==0 && en==1 && imme==1) ? reg_J : `J_imme'bz;
+    assign I = (we==0 && en==1 && imme==1) ? reg_I : `I_imme'bz;
     assign rs = (we==0 && en==1) ? reg_rs : `R_addr_width'bz;
     assign rt = (we==0 && en==1 && is_rt==1) ? reg_rt : `R_addr_width'bz;
     assign rd = (we==0 && en==1 && is_rt==0) ? reg_rd : `R_addr_width'bz;
@@ -42,6 +43,7 @@ module IR(clk, en, we, instr, op, J, I, rs, rt, rd, is_rt);
                         `func_and: reg_op = `op_and;
                         `func_or: reg_op = `op_or;
                         `func_xor: reg_op = `op_xor;
+                        `func_nop: reg_op = `op_nop;
                         default: reg_op = `op_nop;
                     endcase
                 end
@@ -53,7 +55,7 @@ module IR(clk, en, we, instr, op, J, I, rs, rt, rd, is_rt);
                 `OP_beq: reg_op = `op_beq;
                 `OP_bne: reg_op = `op_bne;
                 `OP_j: reg_op = `op_bne;
-                default: reg_op = `op_j;
+                default: reg_op = `op_nop;
             endcase
 
             //数值备份转移

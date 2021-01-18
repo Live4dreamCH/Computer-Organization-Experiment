@@ -10,6 +10,10 @@
     //R-type中的func码宽度
 `define func_width 6
 `define alu_op_width 4
+`define CM_op_width 24
+    //CM指令数相关, 待定
+`define CM_addr_width 6
+`define CM_length 63
 
 //MIPS中的OP
 `define OP_Rtype 6'b000000
@@ -28,6 +32,7 @@
 `define func_and 6'b100100
 `define func_or 6'b100101
 `define func_xor 6'b100110
+`define func_nop 6'b000000
 
 //CPU内部op
     //空指令
