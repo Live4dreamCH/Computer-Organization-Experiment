@@ -13,7 +13,7 @@
 `define CM_op_width 24
     //CM指令数相关, 待定
 `define CM_addr_width 6
-`define CM_length 63
+`define CM_length 64
 
 //MIPS中的OP
 `define OP_Rtype 6'b000000

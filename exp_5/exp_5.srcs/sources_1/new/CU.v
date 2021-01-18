@@ -40,19 +40,19 @@ module CU(clk, en, halt,
 
     initial begin
         $readmemb("E:\\CPU\\exp_5\\exp_5.srcs\\sources_1\\new\\CM_op_addr.txt", CM);
-        uIR[0]=0;
+        uIR[0]=1;
         uIR[1]=0;
         uIR[2]=0;
         nop_counter[0]=0;
-        nop_counter[1]=0;
-        nop_counter[2]=0;
-        nop_back_addr[0]=0;
-        nop_back_addr[1]=0;
-        nop_back_addr[2]=0;
+        nop_counter[1]=4;
+        nop_counter[2]=8;
+        nop_back_addr[0]=1;
+        nop_back_addr[1]=1;
+        nop_back_addr[2]=1;
         reg_out=0;
     end
 
     always @(posedge clk) begin
-        ;
+        #3 $finish;
     end
 endmodule
