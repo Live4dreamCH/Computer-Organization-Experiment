@@ -2,10 +2,11 @@
 `include "Constants.vh"
 
 //ALU 一个简单的算术逻辑单元,其中eq表示运算结果是否为0, 是则eq=1
-module ALU(clk, en, we, alu_op, in1, in2, out, eq);
+module ALU(clk, en, we, alu_op, in1, in2, out, eq, in_imme);
     input clk, en, we;
     input[`alu_op_width-1 :0] alu_op;
     input[`CPU_width-1 :0] in1, in2;
+    input[`I_imme-1 :0] in_imme;
 
     output[`CPU_width-1 :0] out;
     output eq;

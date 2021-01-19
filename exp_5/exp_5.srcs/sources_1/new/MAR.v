@@ -10,8 +10,8 @@
 module MAR(clk, en, mix, we, r_addr, i_addr, addr);
     parameter ext_width = `CPU_width-`I_imme;
     input clk, en, mix, we;
-    input[`CPU_width-1:0] r_addr;
-    input[`I_imme-1:0] i_addr;
+    input[`CPU_width-1 :0] r_addr;
+    input[`I_imme-1 :0] i_addr;
 
     output[`CPU_width-1:0] addr;
     reg[`CPU_width-1:0] inner_addr = `CPU_width'h00000000;
