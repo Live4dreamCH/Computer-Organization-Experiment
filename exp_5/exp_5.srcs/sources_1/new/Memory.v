@@ -15,7 +15,7 @@ module Memory(
     //en高电平使能, clk上升沿触发
     inout [31:0] data;
     input en, we, clk;
-    input [7:0] addr;
+    input [31:0] addr;
     reg [31:0] memory_bank[0:255];
 
     assign data = (we==0 && en==1) ? memory_bank[addr] : 32'bz;    //读出

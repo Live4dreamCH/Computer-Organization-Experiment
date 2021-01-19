@@ -29,7 +29,7 @@ module ALU(clk, en, we, alu_op, in1, in2, out, eq, in_imme);
                 `alu_or: result = in1 | in2; 
                 `alu_xor: result = in1 ^ in2; 
                 `alu_less: result = in1 < in2; 
-                //default: 
+                default: result = in1;
             endcase
         end
     end

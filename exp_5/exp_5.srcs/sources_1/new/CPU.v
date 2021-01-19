@@ -68,5 +68,5 @@ module CPU(clk, en, halt, mreq, rw, addr, data);
     RF rf(clk, RF_en, RF_we, rt_rd_addr, rs_addr, rt_rd_addr, MDRo_ALUo_RFi, RFo_ALUi1, RFo_ALUi2);
 
     //ALU
-    ALU alu(clk, ALU_en, ALU_we, Alu_op, RFo_ALUi1, RFo_ALUi2, MDRo_ALUo_RFi, ALU_eq, I_imme);
+    ALU alu(clk, ALU_en, ALU_we, ALU_op, RFo_ALUi1, RFo_ALUi2, MDRo_ALUo_RFi, ALU_eq, I_imme);
 endmodule
