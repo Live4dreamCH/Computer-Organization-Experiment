@@ -44,6 +44,7 @@ module IR(clk, en, we, instr, op, J, I, rs, rt, rd, is_rt, imme);
                         `func_or: reg_op = `op_or;
                         `func_xor: reg_op = `op_xor;
                         `func_nop: reg_op = `op_nop;
+                        `func_sltu: reg_op = `op_less;
                         default: reg_op = `op_nop;
                     endcase
                 end

@@ -2,7 +2,13 @@
 //`include "Constants.vh"
 
 module test_CPU();
-    reg clk=0, en=1;
+    //CU的第一个上升沿在#5, 数据通路的第一个上升沿在#10
+    reg clk=1, en=1;
+    //clk初值为0也没关系, 只是:
+    //#5时数据通路上升沿但全无使能
+    //#10时CU第一个上升沿
+    //#15时数据通路在CU的控制下开始第一次正常工作
+    //仅此而已, 效果一样, 略微浪费仿真时间(#5)
 
     tri[`CPU_width-1 :0] addr, data;
     tri halt, mreq, rw;

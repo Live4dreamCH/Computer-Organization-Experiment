@@ -33,6 +33,7 @@
 `define func_or 6'b100101
 `define func_xor 6'b100110
 `define func_nop 6'b000000
+`define func_sltu 6'b101011
 
 //CPU内部op
     //空指令
@@ -44,6 +45,7 @@
 `define op_and 5'd3
 `define op_or 5'd4
 `define op_xor 5'd5
+`define op_less 5'd6
 
     //I-type
 `define op_addi 5'd20
@@ -69,3 +71,7 @@
 `define alu_xor 4'd6
 
 `define alu_less 4'd7
+
+`define alu_addi 4'd8
+`define alu_andi 4'd9
+`define alu_ori 4'd10

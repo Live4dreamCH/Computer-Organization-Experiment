@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 //`include "Constants.vh"
 
-module test_ALU();
+module test_CU();
     reg clk=0, en=1;
     wire halt;
 
@@ -15,8 +15,8 @@ module test_ALU();
     wire[1:0] PC_type;
     wire[`alu_op_width-1 :0] ALU_op;
 
-    reg[`op_width-1 :0] IR_op;
-    reg ALU_eq;
+    reg[`op_width-1 :0] IR_op=0;
+    reg ALU_eq=0;
 
     CU cu(clk, en, halt,
         PC_en, PC_we, PC_add4, PC_type,
@@ -31,52 +31,59 @@ module test_ALU();
         );
     
     initial begin
-        // #3
+        //$monitor("time = ", $time, ", uIR[0] = ", cu.uIR[0], ", uIR[1] = ", cu.uIR[1], ", uIR[2] = ", cu.uIR[2]);
+        #50
+        IR_op=`op_lw;
+        #40
 
-        // in1=32'h00002186;
-        // in2=32'hffffffff;
-        // we=1;
-        // alu_op = `alu_add;
-        // #10
-        // we=0;
-        // #10
+        IR_op=`op_lw;
+        #40
 
-        // we=1;
-        // alu_op = `alu_sub;
-        // #10
-        // we=0;
-        // #10
+        IR_op=`op_lw;
+        #40
 
-        // we=1;
-        // alu_op = `alu_less;
-        // #10
-        // we=0;
-        // #10
+        IR_op=`op_lw;
+        #40
 
-        // in2=32'h00002186;
-        // in1=32'hffffffff;
-        // we=1;
-        // alu_op = `alu_less;
-        // #10
-        // we=0;
-        // #10
+        IR_op=`op_lw;
+        #40
 
-        // in1=32'h21861141;
-        // in2=32'h21861141;
-        // we=1;
-        // alu_op = `alu_sub;
-        // #10
-        // we=0;
-        // #10
-        
-        #100
-        $finish;
+        IR_op=`op_sub;
+        #40
+
+        IR_op=`op_addi;
+        #40
+
+        IR_op=`op_sw;
+        #40
+
+        IR_op=`op_sw;
+        #40
+
+        IR_op=`op_sw;
+        #40
+
+        IR_op=`op_sw;
+        #40
+
+        IR_op=`op_nop;
+        #40
+
+        IR_op=`op_nop;
+        #40
+
+        IR_op=`op_nop;
+        #40
+
+        wait(halt) begin
+            $display($time, " halt signal set!");
+            $finish;
+        end
     end
 
     initial begin
-        #3 forever begin 
-            clk=~clk; 
-            #5 ;
+        forever begin 
+            #5 clk=~clk;
         end
     end
 endmodule
