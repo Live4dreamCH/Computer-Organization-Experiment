@@ -31,7 +31,51 @@ module test_CU();
         );
     
     initial begin
-        //$monitor("time = ", $time, ", uIR[0] = ", cu.uIR[0], ", uIR[1] = ", cu.uIR[1], ", uIR[2] = ", cu.uIR[2]);
+//$monitor("time = ", $time, ", uIR[0] = ", cu.uIR[0], ", uIR[1] = ", cu.uIR[1], ", uIR[2] = ", cu.uIR[2]);
+// test1:
+// #50
+// IR_op=`op_lw;
+// #40
+
+// IR_op=`op_lw;
+// #40
+
+// IR_op=`op_lw;
+// #40
+
+// IR_op=`op_lw;
+// #40
+
+// IR_op=`op_lw;
+// #40
+
+// IR_op=`op_sub;
+// #40
+
+// IR_op=`op_addi;
+// #40
+
+// IR_op=`op_sw;
+// #40
+
+// IR_op=`op_sw;
+// #40
+
+// IR_op=`op_sw;
+// #40
+
+// IR_op=`op_sw;
+// #40
+
+// IR_op=`op_nop;
+// #40
+
+// IR_op=`op_nop;
+// #40
+
+// IR_op=`op_nop;
+// #40
+
         #50
         IR_op=`op_lw;
         #40
@@ -39,16 +83,25 @@ module test_CU();
         IR_op=`op_lw;
         #40
 
-        IR_op=`op_lw;
+        IR_op=`op_nop;
+        #40
+
+        IR_op=`op_nop;
         #40
 
         IR_op=`op_lw;
         #40
 
-        IR_op=`op_lw;
+        IR_op=`op_add;
         #40
 
-        IR_op=`op_sub;
+        IR_op=`op_nop;
+        #40
+
+        IR_op=`op_and;
+        #40
+
+        IR_op=`op_less;
         #40
 
         IR_op=`op_addi;
@@ -60,21 +113,74 @@ module test_CU();
         IR_op=`op_sw;
         #40
 
+        IR_op=`op_nop;
+        #40
+
+        IR_op=`op_nop;
+        #40
+
+        IR_op=`op_lw;
+        #40
+
+        IR_op=`op_lw;
+        #40
+
+        IR_op=`op_nop;
+        #40
+
+        IR_op=`op_nop;
+        #40
+        
+        IR_op=`op_andi;
+        #40
+        
+        IR_op=`op_beq;
+        #40
+        
+        IR_op=`op_add;
+        #10
+        ALU_eq=1;
+        #10
+        ALU_eq=0;
+        #20
+
+        IR_op=`op_nop;
+        #40
+        
+        IR_op=`op_sub;
+        #40
+        
+        IR_op=`op_j;
+        #40
+        
+        IR_op=`op_nop;
+        #40
+        
+        IR_op=`op_nop;
+        #40
+        
+        IR_op=`op_xor;
+        #40
+        
         IR_op=`op_sw;
         #40
-
+        
         IR_op=`op_sw;
         #40
-
+        
         IR_op=`op_nop;
         #40
-
+        
         IR_op=`op_nop;
         #40
-
+        
+        IR_op=`op_sw;
+        #40
+        
         IR_op=`op_nop;
         #40
-
+        //nop continue......
+        
         wait(halt) begin
             $display($time, " halt signal set!");
             $finish;

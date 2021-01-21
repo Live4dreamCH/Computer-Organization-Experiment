@@ -1,4 +1,4 @@
-//                    11_00000, lw3-1 <-> 1-1
+//                    11_00000, lw3-1 <-> 1-1, when non-blocking; solved at blocking situation
 //ALU _RF_IR  _MD_Me_MAR_PC   _addr
 //0-0 nop 0
 000000_00_0000_00_00_000_00000_000000
