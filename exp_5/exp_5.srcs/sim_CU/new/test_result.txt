@@ -18,8 +18,6 @@ time =                   55, addr0 =  0, addr1 =  2, addr2 =  0
 time =                   65, addr0 =  0, addr1 =  3, addr2 =  0
 time =                   75, addr0 =  0, addr1 =  4, addr2 =  0
 time =                   85, addr0 = 17, addr1 =  5, addr2 =  0
-time =                   85, conflict appear at uOP! reg_and = 000000000001000000000000
-
 time =                   95, addr0 = 18, addr1 =  0, addr2 =  0
 time =                  105, addr0 = 19, addr1 =  0, addr2 =  0
 time =                  115, addr0 = 20, addr1 =  0, addr2 =  0
@@ -56,8 +54,6 @@ time =                  415, addr0 =  0, addr1 =  2, addr2 =  7
 time =                  425, addr0 =  0, addr1 =  3, addr2 =  0
 time =                  435, addr0 =  0, addr1 =  4, addr2 =  0
 time =                  445, addr0 = 13, addr1 =  5, addr2 =  1
-time =                  445, conflict appear at uOP! reg_and = 000000000001000000000000
-
 time =                  455, addr0 = 14, addr1 =  0, addr2 =  2
 time =                  465, addr0 =  0, addr1 =  0, addr2 =  3
 time =                  475, addr0 =  0, addr1 =  0, addr2 =  4
@@ -94,8 +90,6 @@ time =                  775, addr0 =  0, addr1 =  2, addr2 =  0
 time =                  785, addr0 =  0, addr1 =  3, addr2 =  0
 time =                  795, addr0 =  0, addr1 =  4, addr2 =  0
 time =                  805, addr0 = 15, addr1 =  5, addr2 =  1
-time =                  805, conflict appear at uOP! reg_and = 000000000001000000000000
-
 time =                  815, addr0 = 14, addr1 =  0, addr2 =  2
 time =                  825, addr0 =  0, addr1 =  0, addr2 =  3
 time =                  835, addr0 =  0, addr1 =  0, addr2 =  4
@@ -117,7 +111,7 @@ time =                  985, addr0 =  0, addr1 =  0, addr2 =  0
 time =                  995, addr0 =  0, addr1 =  0, addr2 =  0
 INFO: [USF-XSim-96] XSim completed. Design snapshot 'test_CU_behav' loaded.
 INFO: [USF-XSim-97] XSim simulation ran for 1000ns
-launch_simulation: Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 1636.359 ; gain = 0.000
+launch_simulation: Time (s): cpu = 00:00:02 ; elapsed = 00:00:19 . Memory (MB): peak = 1880.711 ; gain = 0.590
 run all
 time =                 1005, addr0 =  0, addr1 =  0, addr2 = 27
 time =                 1015, addr0 =  0, addr1 =  0, addr2 =  0
@@ -136,8 +130,6 @@ time =                 1135, addr0 =  0, addr1 =  2, addr2 =  7
 time =                 1145, addr0 =  0, addr1 =  3, addr2 =  0
 time =                 1155, addr0 =  0, addr1 =  4, addr2 =  0
 time =                 1165, addr0 = 21, addr1 =  5, addr2 =  0
-time =                 1165, conflict appear at uOP! reg_and = 000000000001000000000000
-
 time =                 1175, addr0 = 22, addr1 =  0, addr2 =  0
 time =                 1185, addr0 = 23, addr1 =  0, addr2 =  0
 time =                 1195, addr0 =  0, addr1 =  0, addr2 =  0

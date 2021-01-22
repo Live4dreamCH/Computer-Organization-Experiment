@@ -12,57 +12,31 @@ module test_CPU();
 
     tri[`CPU_width-1 :0] addr, data;
     tri halt, mreq, rw;
+    
+    integer i=0, n=9, base=32'hf0;
 
     CPU cpu(clk, en, halt, mreq, rw, addr, data);
     Memory memory(data, addr, mreq, rw, clk);
+
     initial begin
-        // #3
-
-        // in1=32'h00002186;
-        // in2=32'hffffffff;
-        // we=1;
-        // alu_op = `alu_add;
-        // #10
-        // we=0;
-        // #10
-
-        // we=1;
-        // alu_op = `alu_sub;
-        // #10
-        // we=0;
-        // #10
-
-        // we=1;
-        // alu_op = `alu_less;
-        // #10
-        // we=0;
-        // #10
-
-        // in2=32'h00002186;
-        // in1=32'hffffffff;
-        // we=1;
-        // alu_op = `alu_less;
-        // #10
-        // we=0;
-        // #10
-
-        // in1=32'h21861141;
-        // in2=32'h21861141;
-        // we=1;
-        // alu_op = `alu_sub;
-        // #10
-        // we=0;
-        // #10
-        
-        #100
-        $finish;
+        $display("before:");
+        for(i=0; i<n; i=i+1) begin
+            $write("%h ", memory.memory_bank[base+i]);
+        end
+        $display("\n");
+        wait(halt) begin
+            #20
+            $display("\ntime = ", $time, ", halt signal set!");
+            $display("after:");
+            for(i=0; i<n; i=i+1)begin
+                $write("%h ", memory.memory_bank[base+i]);
+            end
+            $display("\n");
+            $finish;
+        end
     end
 
     initial begin
         forever #5 clk = ~clk;
-    end
-    
-    always @(posedge halt) begin
-        $finish;
     end
 endmodule

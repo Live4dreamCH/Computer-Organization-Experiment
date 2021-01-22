@@ -1,0 +1,21 @@
+//MIPS_codes: bubble sort
+0000_0000
+0000_0000
+0000_0000
+0000_0000
+
+//how many numbers
+@e0
+0000_0009
+
+//Data to be sorted
+@f0
+0000_0021
+ffff_ffff
+0000_0086
+ffff_0000
+0000_0011
+0000_ffff
+0000_0041
+00ff_ff00
+0000_0047

@@ -658,13 +658,13 @@ module CU(clk, en, halt,
             //变换输出控制信号
             reg_halt = halts[0] & halts[1] & halts[2];
             //reg_and仅供调试
-            reg_and = temp0[`CM_op_width+`CM_addr_width-1 : `CM_addr_width] & temp1[`CM_op_width+`CM_addr_width-1 : `CM_addr_width] & temp0[`CM_op_width+`CM_addr_width-1 : `CM_addr_width];
+            reg_and = temp0[`CM_op_width+`CM_addr_width-1 : `CM_addr_width] & temp1[`CM_op_width+`CM_addr_width-1 : `CM_addr_width] & temp2[`CM_op_width+`CM_addr_width-1 : `CM_addr_width];
             if(reg_and)begin
                 $display("time = ", $time, ", conflict appear at uOP! reg_and = %b", reg_and);
                 $display("");
                 //$stop;
             end
-            reg_or = temp0[`CM_op_width+`CM_addr_width-1 : `CM_addr_width] | temp1[`CM_op_width+`CM_addr_width-1 : `CM_addr_width] | temp0[`CM_op_width+`CM_addr_width-1 : `CM_addr_width];
+            reg_or = temp0[`CM_op_width+`CM_addr_width-1 : `CM_addr_width] | temp1[`CM_op_width+`CM_addr_width-1 : `CM_addr_width] | temp2[`CM_op_width+`CM_addr_width-1 : `CM_addr_width];
         end
     end
 endmodule

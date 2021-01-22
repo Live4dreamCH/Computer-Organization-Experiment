@@ -10,7 +10,7 @@ module test_Memory();
     wire [31:0] data_read;
     wire [31:0] data;
     reg [31:0] data_write=0;
-    reg [7:0] addr=0;
+    reg [31:0] addr=0;
     reg en=1, we=1, clk=0;
     Memory memory(
     data,
@@ -24,16 +24,17 @@ module test_Memory();
     assign data_read = !(we) ? data : 32'bz;
     always fork
         #3 addr=0; #3 data_write=32'h21;
-        #13 addr=2; #13 data_write=32'h86;
-        #23 addr=4; #23 data_write=32'h11;
-        #33 addr=6; #33 data_write=32'h41;
-        #43 addr=246; #43 data_write=32'h47;
+        #13 addr=8; #13 data_write=32'h86;
+        #23 addr=16; #23 data_write=32'h11;
+        #33 addr=24; #33 data_write=32'h41;
+        #43 addr=984; #43 data_write=32'h47;
         #53 we=0;
-        #53 addr=0;
-        #63 addr=2;
-        #73 addr=4;
-        #83 addr=6;
-        #93 addr=246;
+        #53 addr=2;//会被对齐为0
+        #63 addr=8;
+        #73 addr=16;
+        #83 addr=24;
+        #93 addr=984;
+        #113 $finish;
         forever #5 clk = ~clk;
     join
 
