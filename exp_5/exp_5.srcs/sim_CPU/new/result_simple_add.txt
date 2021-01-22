@@ -1,0 +1,75 @@
+source test_CPU.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+before:
+00000021 ffffffff 00000086 ffff0000 00000011 0000ffff 00000041 00ffff00 00000047 
+
+time =                    0, addr0 =  1, addr1 =  0, addr2 =  0
+time =                   10, addr0 =  2, addr1 =  0, addr2 =  0
+time =                   20, addr0 =  3, addr1 =  0, addr2 =  0
+time =                   30, addr0 =  4, addr1 =  0, addr2 =  0
+time =                   40, addr0 =  5, addr1 =  1, addr2 =  0
+time =                   50, addr0 =  0, addr1 =  2, addr2 =  0
+time =                   60, addr0 =  0, addr1 =  3, addr2 =  0
+time =                   70, addr0 =  0, addr1 =  4, addr2 =  0
+time =                   80, addr0 = 13, addr1 =  5, addr2 =  1
+time =                   80, conflict appear at uOP! reg_and = 0000000000010000000000000
+
+time =                   90, addr0 = 14, addr1 =  0, addr2 =  2
+time =                  100, addr0 =  0, addr1 =  0, addr2 =  3
+time =                  110, addr0 =  0, addr1 =  0, addr2 =  4
+time =                  120, addr0 =  0, addr1 = 17, addr2 =  5
+time =                  120, conflict appear at uOP! reg_and = 0000000000010000000000000
+
+time =                  130, addr0 =  0, addr1 = 18, addr2 =  0
+time =                  140, addr0 =  0, addr1 = 19, addr2 =  0
+time =                  150, addr0 =  0, addr1 = 20, addr2 =  0
+time =                  160, addr0 =  0, addr1 =  1, addr2 = 13
+time =                  170, addr0 =  0, addr1 =  2, addr2 = 14
+time =                  180, addr0 =  0, addr1 =  3, addr2 =  0
+time =                  190, addr0 =  0, addr1 =  4, addr2 =  0
+time =                  200, addr0 =  0, addr1 =  5, addr2 =  1
+time =                  210, addr0 =  0, addr1 =  0, addr2 =  2
+time =                  220, addr0 =  0, addr1 =  0, addr2 =  3
+time =                  230, addr0 =  0, addr1 =  0, addr2 =  4
+time =                  240, addr0 =  0, addr1 = 21, addr2 =  5
+time =                  240, conflict appear at uOP! reg_and = 0000000000010000000000000
+
+                 250 pipeline 2: nop from IR, halt!
+time =                  250, addr0 =  0, addr1 = 22, addr2 =  0
+time =                  260, addr0 =  0, addr1 = 23, addr2 =  0
+time =                  270, addr0 =  0, addr1 =  0, addr2 =  0
+time =                  280, addr0 =  0, addr1 =  1, addr2 =  0
+time =                  290, addr0 =  0, addr1 =  2, addr2 =  0
+time =                  300, addr0 =  0, addr1 =  3, addr2 =  0
+time =                  310, addr0 =  0, addr1 =  4, addr2 =  0
+time =                  320, addr0 =  0, addr1 =  5, addr2 =  0
+                 330 pipeline 1: nop from IR, halt!
+time =                  330, addr0 =  0, addr1 =  0, addr2 =  0
+time =                  340, addr0 =  0, addr1 =  0, addr2 =  0
+time =                  350, addr0 =  0, addr1 =  0, addr2 =  0
+time =                  360, addr0 =  1, addr1 =  0, addr2 =  0
+time =                  370, addr0 =  2, addr1 =  0, addr2 =  0
+time =                  380, addr0 =  3, addr1 =  0, addr2 =  0
+time =                  390, addr0 =  4, addr1 =  0, addr2 =  0
+time =                  400, addr0 =  5, addr1 =  0, addr2 =  0
+                 410 pipeline 0: nop from IR, halt!
+time =                  410, addr0 =  0, addr1 =  0, addr2 =  0
+time =                  420, addr0 =  0, addr1 =  0, addr2 =  0
+
+time =                  430, halt signal set!
+after:
+00000022 ffffffff 00000086 ffff0000 00000011 0000ffff 00000041 00ffff00 00000047 
+
+$finish called at time : 430 ns : File "E:/CPU/exp_5/exp_5.srcs/sim_CPU/new/test_CPU.v" Line 33
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'test_CPU_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:02 ; elapsed = 00:00:06 . Memory (MB): peak = 2079.773 ; gain = 0.000

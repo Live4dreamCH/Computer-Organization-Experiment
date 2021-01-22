@@ -20,11 +20,11 @@ module CPU(clk, en, halt, mreq, rw, addr, data);
 
     tri PC_en, PC_we, PC_add4,
         MAR_en, MAR_we, MAR_mix,
-        MDR_en, MDR_we,
+        MDR_en,
         IR_en, IR_we, IR_is_rt, IR_imme,
         RF_en, RF_we,
         ALU_en, ALU_we;
-    tri[1:0] PC_type;
+    tri[1:0] PC_type, MDR_we;
     tri[`alu_op_width-1 :0] ALU_op;
 
     tri[`op_width-1 :0] IR_op;
@@ -44,29 +44,28 @@ module CPU(clk, en, halt, mreq, rw, addr, data);
     
     //PC
     tri[`J_imme-1 :0] J_imme;
-    tri[`CPU_width-1 :0] PCo_RFo_MARi;
-    PC pc(clk, PC_add4, PC_en, J_imme, PC_we, PCo_RFo_MARi, PC_type);
+    tri[`CPU_width-1 :0] PCo_MARi;
+    PC pc(clk, PC_add4, PC_en, J_imme, PC_we, PCo_MARi, PC_type);
 
     //MAR
+    tri[`CPU_width-1 :0] MDRo_ALUo_RFi_IRi, RFo1_ALUi1_MARir, RFo2_ALUi2_MDRi;
     tri[`I_imme-1 :0] I_imme;
-    MAR mar(clk, MAR_en, MAR_mix, MAR_we, PCo_RFo_MARi, I_imme, addr);
+    MAR mar(clk, MAR_en, MAR_mix, MAR_we, PCo_MARi, I_imme, addr, RFo1_ALUi1_MARir);
 
     //MDR
-    MDR mdr(clk, MDR_en, MDR_we, data);
+    MDR mdr(clk, MDR_en, MDR_we, data, RFo2_ALUi2_MDRi, MDRo_ALUo_RFi_IRi);
 
     //IR
     tri[`R_addr_width-1 :0] rs_addr, rt_rd_addr;
-    IR ir(clk, IR_en, IR_we, data, IR_op, J_imme, I_imme, rs_addr, rt_rd_addr, rt_rd_addr, IR_is_rt, IR_imme);
+    IR ir(clk, IR_en, IR_we, MDRo_ALUo_RFi_IRi, IR_op, J_imme, I_imme, rs_addr, rt_rd_addr, rt_rd_addr, IR_is_rt, IR_imme);
 
     //RF
-    tri[`CPU_width-1 :0] MDRo_ALUo_RFi;
-    assign MDRo_ALUo_RFi = data;
-    tri[`CPU_width-1 :0] RFo_ALUi1, RFo_ALUi2;
-    assign PCo_RFo_MARi = RFo_ALUi1;
-    assign data = RFo_ALUi2;
-    //assign RFo_ALUi2 = {16'b0, I_imme[`I_imme-1 :0]};
-    RF rf(clk, RF_en, RF_we, rt_rd_addr, rs_addr, rt_rd_addr, MDRo_ALUo_RFi, RFo_ALUi1, RFo_ALUi2);
+    //assign MDRo_ALUo_RFi_IRi = data;
+    //assign PCo_MARi = RFo1_ALUi1_MARir;
+    //assign data = RFo2_ALUi2_MDRi;
+    //assign RFo2_ALUi2_MDRi = {16'b0, I_imme[`I_imme-1 :0]};
+    RF rf(clk, RF_en, RF_we, rt_rd_addr, rs_addr, rt_rd_addr, MDRo_ALUo_RFi_IRi, RFo1_ALUi1_MARir, RFo2_ALUi2_MDRi);
 
     //ALU
-    ALU alu(clk, ALU_en, ALU_we, ALU_op, RFo_ALUi1, RFo_ALUi2, MDRo_ALUo_RFi, ALU_eq, I_imme);
+    ALU alu(clk, ALU_en, ALU_we, ALU_op, RFo1_ALUi1_MARir, RFo2_ALUi2_MDRi, MDRo_ALUo_RFi_IRi, ALU_eq, I_imme);
 endmodule

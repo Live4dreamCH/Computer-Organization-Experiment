@@ -10,7 +10,7 @@
     //R-type中的func码宽度
 `define func_width 6
 `define alu_op_width 4
-`define CM_op_width 24
+`define CM_op_width 25
     //CM指令数相关, 待定
 `define CM_addr_width 6
 `define CM_length 64

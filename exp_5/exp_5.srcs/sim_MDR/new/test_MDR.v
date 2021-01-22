@@ -2,17 +2,30 @@
 //`include "Constants.vh"
 
 module test_MDR();
-    wire [31:0] data_read;
-    wire [31:0] data;
-    reg [31:0] data_write=0;
-    reg en=1, we=1, clk=0;
-    MDR mdr(clk, en, we, data);
+    wire [31:0] mem_out, out_bus;
+    wire [31:0] mem_bus;
+    reg [31:0] mem_in=32'h21, in_bus=32'h86;
+    reg en=1, clk=0;
+    reg[1:0] we;
+    MDR mdr(clk, en, we, mem_bus, in_bus, out_bus);
 
-    assign data = (we) ? data_write : 32'bz;
-    assign data_read = !(we) ? data : 32'bz;
-    always fork
-        #3 data_write=32'h21;
-        #13 we=0;
+    assign mem_bus = (we==2) ? mem_in : 32'bz;
+    assign mem_out = (we==0) ? mem_bus : 32'bz;
+    initial begin
+        #3 we=0;
+        #10 we=1;
+        
+        #10 we=2;
+        #10 we=0;
+        #10 we=1;
+
+        #10 we=3;
+        #10 we=0;
+        #10 we=1;
+        #20 $finish;
+    end
+
+    initial begin
         forever #5 clk = ~clk;
-    join
+    end
 endmodule

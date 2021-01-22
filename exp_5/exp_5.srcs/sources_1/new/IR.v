@@ -23,6 +23,7 @@ module IR(clk, en, we, instr, op, J, I, rs, rt, rd, is_rt, imme);
     reg[`J_imme-1 :0] reg_J;
     reg[`I_imme-1 :0] reg_I;
     reg[`R_addr_width-1 :0] reg_rs, reg_rt, reg_rd;
+    reg[1:0] counter=2'b11; //延迟发送
 
     //输出
     assign op = (we==0 && en==1) ? reg_op : `op_width'bz;
@@ -33,6 +34,19 @@ module IR(clk, en, we, instr, op, J, I, rs, rt, rd, is_rt, imme);
     assign rd = (we==0 && en==1 && is_rt==0) ? reg_rd : `R_addr_width'bz;
 
     always @(posedge clk) begin
+        if (counter==0) begin
+            //数值备份转移
+            reg_J = reg_instr[`J_imme-1 :0];
+            reg_I = reg_instr[`I_imme-1 :0];
+            reg_rs = reg_instr[`J_imme-1 : `J_imme-5];
+            reg_rt = reg_instr[`J_imme-6 : `J_imme-10];
+            reg_rd = reg_instr[`J_imme-11 : `J_imme-15];
+        end
+        if (counter) begin
+            counter=counter-1;
+        end else begin
+            counter=2'b11;
+        end
         if(en && we) begin
             //译码生成op
             case (instr[`CPU_width-1 : `J_imme])
@@ -58,15 +72,6 @@ module IR(clk, en, we, instr, op, J, I, rs, rt, rd, is_rt, imme);
                 `OP_j: reg_op = `op_bne;
                 default: reg_op = `op_nop;
             endcase
-
-            //数值备份转移
-            begin
-                reg_J <= reg_instr[`J_imme-1 :0];
-                reg_I <= reg_instr[`I_imme-1 :0];
-                reg_rs <= reg_instr[`J_imme-1 : `J_imme-5];
-                reg_rt <= reg_instr[`J_imme-6 : `J_imme-10];
-                reg_rd <= reg_instr[`J_imme-11 : `J_imme-15];
-            end
 
             //MAR->IR, 写入新指令
             reg_instr = instr;

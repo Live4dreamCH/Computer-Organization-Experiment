@@ -26,11 +26,11 @@ module CU(clk, en, halt,
     output PC_en, PC_we, PC_add4,
         MAR_en, MAR_we, MAR_mix,
         Mem_en, Mem_we,
-        MDR_en, MDR_we,
+        MDR_en,
         IR_en, IR_we, IR_is_rt, IR_imme,
         RF_en, RF_we,
         ALU_en, ALU_we;
-    output[1:0] PC_type;
+    output[1:0] PC_type, MDR_we;
     output[`alu_op_width-1 :0] ALU_op;
 
     input[`op_width-1 :0] IR_op;
@@ -63,7 +63,7 @@ module CU(clk, en, halt,
     //为节省CM空间, 在此处设计寄存器, 暂存二者的不同. 规定beq=1, bne=0
     reg is_beq[0:2];
     
-    assign {ALU_op[`alu_op_width-1 :0], ALU_we, ALU_en, RF_we, RF_en, IR_imme, IR_is_rt, IR_we, IR_en, MDR_we, MDR_en, Mem_we, Mem_en, MAR_mix, MAR_we, MAR_en, PC_type[1:0], PC_add4, PC_we, PC_en}=
+    assign {ALU_op[`alu_op_width-1 :0], ALU_we, ALU_en, RF_we, RF_en, IR_imme, IR_is_rt, IR_we, IR_en, MDR_we[1:0], MDR_en, Mem_we, Mem_en, MAR_mix, MAR_we, MAR_en, PC_type[1:0], PC_add4, PC_we, PC_en}=
     (en) ? reg_or : `CM_op_width'b0;
     assign halt = (en) ? reg_halt : 1'bz;
 
@@ -658,7 +658,9 @@ module CU(clk, en, halt,
             //变换输出控制信号
             reg_halt = halts[0] & halts[1] & halts[2];
             //reg_and仅供调试
-            reg_and = temp0[`CM_op_width+`CM_addr_width-1 : `CM_addr_width] & temp1[`CM_op_width+`CM_addr_width-1 : `CM_addr_width] & temp2[`CM_op_width+`CM_addr_width-1 : `CM_addr_width];
+            reg_and = (temp0[`CM_op_width+`CM_addr_width-1 : `CM_addr_width] & temp1[`CM_op_width+`CM_addr_width-1 : `CM_addr_width]) | 
+                (temp1[`CM_op_width+`CM_addr_width-1 : `CM_addr_width] & temp2[`CM_op_width+`CM_addr_width-1 : `CM_addr_width]) | 
+                (temp0[`CM_op_width+`CM_addr_width-1 : `CM_addr_width] & temp2[`CM_op_width+`CM_addr_width-1 : `CM_addr_width]);
             if(reg_and)begin
                 $display("time = ", $time, ", conflict appear at uOP! reg_and = %b", reg_and);
                 $display("");

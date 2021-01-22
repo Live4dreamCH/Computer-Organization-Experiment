@@ -16,7 +16,7 @@ module PC(clk, add4, en, imme, we, addr, type);
 
     output[`CPU_width-1 :0] addr;
     reg[`CPU_width-1 :0] inner_addr = `CPU_width'b0, back1, back2;
-    reg[1:0] counter=2'b11;
+    reg[1:0] counter=2'b11; //延迟发送
 
     reg[`CPU_width-1 :0] temp;
 

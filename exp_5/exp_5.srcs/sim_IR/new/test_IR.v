@@ -13,10 +13,8 @@ module test_IR();
     IR ir(clk, en, we, instr, op, J, I, rs, rt, rd, is_rt, imme);
 
     initial begin
-        #3
+        #35
         en=1;
-        #10
-
         we=1;
         instr = {`OP_Rtype, 5'd2, 5'd3, 5'd1, 5'd0, `func_add};
         #10
@@ -26,8 +24,10 @@ module test_IR();
         #20
 
         we=1;
+        en=0;
         instr = {`OP_Rtype, 5'd5, 5'd6, 5'd4, 5'd0, `func_xor};
         #10
+        en=1;
         we=0;
         is_rt = 1;
         #10
