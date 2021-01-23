@@ -7,16 +7,23 @@ int main(){
     for(int i=0;i<n;i++){
         printf("%x ", array[i]);
     }
+
+    unsigned int min_value, min_addr;
     for(int i=0;i<n-1;i++){
-        for(int j=n-2;j>=i;j--){
-            if(array[j]>array[j+1]){
-                int temp;
-                temp=array[j];
-                array[j]=array[j+1];
-                array[j+1]=temp;
+        min_addr=i;
+        min_value=array[i];
+        for(int j=i+1;j<n;j++){
+            if(array[j]<min_value){
+                min_addr=j;
+                min_value=array[j];
             }
         }
+        if(min_addr!=i){
+            array[min_addr]=array[i];
+            array[i]=min_value;
+        }
     }
+
     printf("\n\nafter:\n");
     for(int i=0;i<n;i++){
         printf("%x ", array[i]);
